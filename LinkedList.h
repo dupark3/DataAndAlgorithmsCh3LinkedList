@@ -1,8 +1,8 @@
 #ifndef GUARD_LinkedList_h
 #define GUARD_LinkedList_h
 
-// Singly Linked List
-// forward declare LinkedList
+#include <iostream>
+
 template <class T>
 class Node{
 public:
@@ -18,7 +18,7 @@ class LinkedList{
 public:
     LinkedList() : head(0), tail(0) { }
     LinkedList(T val) { head = tail = new Node<T>(val); }
-    ~LinkedList() { delete head; delete tail; }
+    ~LinkedList();
     
     LinkedList& operator= (const LinkedList& list);
     void insert(T val);
@@ -26,7 +26,6 @@ public:
     Node<T>* head;
     Node<T>* tail;
 };
-
 
 template <class T>
 void LinkedList<T>::insert(T val){
@@ -36,6 +35,16 @@ void LinkedList<T>::insert(T val){
         tail->next = new Node<int>(val);
         tail = tail->next;
     }
+}
+
+template <class T>
+LinkedList<T>::~LinkedList(){
+    Node<T>* temp = head;
+    while (temp->next){
+        delete head;
+        head = temp = temp->next;
+    }
+    delete temp;
 }
 
 

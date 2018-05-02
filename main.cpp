@@ -14,6 +14,6 @@ int main(){
     cout << my_list.head->value << endl;
     cout << my_list.head->next->value << endl;
     cout << my_list.head->next->next->value << endl;
-    cout << my_list.head->next->next->next->value<< endl;
+    cout << my_list.tail->value<< endl;
     return 0;
 }
