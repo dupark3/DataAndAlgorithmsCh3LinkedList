@@ -5,7 +5,7 @@
 
 /*
 TODO:
-    Need doubly linked list to delete at end efficiently
+    Need insert/delete at random points
     Better encapsulation and protection of data
 */ 
 
@@ -33,6 +33,7 @@ public:
     void delete_at_end();
     void delete_at_front();
 
+    bool is_empty() { return head == 0; }
     void print();
 
     Node<T>* head;
@@ -41,17 +42,19 @@ public:
 
 template <class T>
 LinkedList<T>::~LinkedList(){
-    Node<T>* temp = head;
-    while (temp->next){
-        delete head;
-        head = temp = temp->next;
+    if (!is_empty()){
+        Node<T>* temp = head;
+        while (temp->next){
+            delete head;
+            head = temp = temp->next;
+        }
+        delete temp;
     }
-    delete temp;
 }
 
 template <class T>
 void LinkedList<T>::insert_at_end(T val){
-    if (!head){
+    if (is_empty()){
         head = tail = new Node<int>(val);
     } else {
         tail->next = new Node<int>(val);
@@ -62,7 +65,7 @@ void LinkedList<T>::insert_at_end(T val){
 
 template <class T>
 void LinkedList<T>::insert_at_front(T val){
-    if (!head){
+    if (is_empty()){
         head = tail = new Node<int>(val);
     } else {
         head->previous = new Node<int>(val);
@@ -76,7 +79,8 @@ void LinkedList<T>::delete_at_end(){
     if (tail){
         Node<T>* temp = tail;
         tail = tail->previous;
-        tail->next = 0;
+        if (tail) tail->next = 0;
+        else head = tail = 0;
         delete temp;
     }
 }
@@ -93,11 +97,15 @@ void LinkedList<T>::delete_at_front(){
 
 template <class T>
 void LinkedList<T>::print(){
-    Node<T>* temp = head;
-    do{
-        std::cout << temp->value << " ";
-    } while(temp = temp->next);
-    std::cout << std::endl;
+    if(!is_empty()){
+        Node<T>* temp = head;
+        do{
+            std::cout << temp->value << " ";
+        } while(temp = temp->next);
+        std::cout << std::endl;
+    } else {
+        std:: cout << "Linked List is empty" << std::endl;
+    }
 }
 
 #endif
