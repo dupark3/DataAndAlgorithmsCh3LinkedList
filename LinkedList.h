@@ -94,11 +94,10 @@ void LinkedList<T>::delete_at_front(){
 template <class T>
 void LinkedList<T>::print(){
     Node<T>* temp = head;
-    while(temp->next){
+    do{
         std::cout << temp->value << " ";
-        temp = temp->next;
-    }
-    std::cout << temp->value << std::endl;
+    } while(temp = temp->next);
+    std::cout << std::endl;
 }
 
 #endif
