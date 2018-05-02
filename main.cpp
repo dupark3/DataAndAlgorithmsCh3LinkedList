@@ -8,11 +8,11 @@ using namespace std;
 
 int main(){
     LinkedList<int> my_list;
-    my_list.insert_at_end(5);
     my_list.insert_at_end(6);
     my_list.insert_at_end(7);
-    cout << my_list.head->value << endl;
-    cout << my_list.head->next->value << endl;
-    cout << my_list.tail->value<< endl;
+    my_list.insert_at_front(5);
+    my_list.insert_at_front(4);
+    my_list.print(); // 4 5 6 7
+
     return 0;
 }
