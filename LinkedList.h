@@ -1,6 +1,7 @@
 #ifndef GUARD_LinkedList_h
 #define GUARD_LinkedList_h
 
+#include <climits> // INT_MIN
 #include <iostream>
 
 /*
@@ -30,8 +31,8 @@ public:
     
     void insert_at_end(T val);
     void insert_at_front(T val);
-    void delete_at_end();
-    void delete_at_front();
+    T delete_at_end();
+    T delete_at_front();
 
     bool is_empty() { return head == 0; }
     void print();
@@ -74,25 +75,33 @@ void LinkedList<T>::insert_at_front(T val){
     }
 }
 
+// returns INT_MIN if trying to delete from an empty list
 template <class T>
-void LinkedList<T>::delete_at_end(){
+T LinkedList<T>::delete_at_end(){
+    T value = INT_MIN;
     if (tail){
+        value = tail->value;
         Node<T>* temp = tail;
         tail = tail->previous;
         if (tail) tail->next = 0;
         else head = tail = 0;
         delete temp;
     }
+    return value;
 }
 
+// returns INT_MIN if trying to delete from an empty list
 template <class T>
-void LinkedList<T>::delete_at_front(){
+T LinkedList<T>::delete_at_front(){
+    T value = INT_MIN;
     if(head){
+        value = head->value;
         Node<T>* temp = head;
         head = head->next;
         head->previous = 0;
         delete temp;
     }
+    return value;
 }
 
 template <class T>

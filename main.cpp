@@ -17,9 +17,9 @@ int main(){
     my_list.print(); // 5 6 7
     my_list.delete_at_end();
     my_list.delete_at_end();
-    my_list.delete_at_end(); // deleting last element
+    cout << "Deleting value: " << my_list.delete_at_end() << endl; // deleting last element
     my_list.print(); 
-    my_list.delete_at_end(); // trying to delete an empty list
-    
+    cout << "Deleting value: " << my_list.delete_at_end() << endl; // trying to delete an empty list
+
     return 0;
 }
