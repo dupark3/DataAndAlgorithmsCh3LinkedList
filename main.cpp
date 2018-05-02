@@ -13,6 +13,8 @@ int main(){
     my_list.insert_at_front(5);
     my_list.insert_at_front(4);
     my_list.print(); // 4 5 6 7
+    my_list.delete_at_front();
+    my_list.print(); // 5 6 7
 
     return 0;
 }

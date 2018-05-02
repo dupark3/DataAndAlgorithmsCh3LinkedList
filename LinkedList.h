@@ -5,6 +5,7 @@
 
 /*
 TODO:
+    Need doubly linked list to delete at end efficiently
     Better encapsulation and protection of data
 */ 
 
@@ -28,7 +29,9 @@ public:
     
     void insert_at_end(T val);
     void insert_at_front(T val);
-    
+    void delete_at_end();
+    void delete_at_front();
+
     void print();
 
     Node<T>* head;
@@ -63,6 +66,24 @@ void LinkedList<T>::insert_at_front(T val){
         Node<T>* temp = head;
         head = new Node<int>(val);
         head->next = temp;
+    }
+}
+
+template <class T>
+void LinkedList<T>::delete_at_end(){
+    if (tail){
+        Node<T>* temp = tail;
+        tail = tail->next; // CHANGE TO PREVIOUS ONCE DOUBLY LINKED LIST IMPLEMENTED
+        delete temp;
+    }
+}
+
+template <class T>
+void LinkedList<T>::delete_at_front(){
+    if(head){
+        Node<T>* temp = head;
+        head = head->next;
+        delete temp;
     }
 }
 
