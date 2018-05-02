@@ -3,6 +3,11 @@
 
 #include <iostream>
 
+/*
+TODO:
+    Better encapsulation and protection of data
+*/ 
+
 template <class T>
 class Node{
 public:
@@ -10,7 +15,6 @@ public:
     Node<T> *next;
     Node() : next(0) { }
     Node(T val) : value(val), next(0) { }
-
 };
 
 template <class T>
@@ -19,16 +23,17 @@ public:
     LinkedList() : head(0), tail(0) { }
     LinkedList(T val) { head = tail = new Node<T>(val); }
     ~LinkedList();
+    LinkedList(const LinkedList&);
+    LinkedList& operator= (const LinkedList&);
     
-    LinkedList& operator= (const LinkedList& list);
-    void insert(T val);
-
+    void insert_at_end(T val);
+    
     Node<T>* head;
     Node<T>* tail;
 };
 
 template <class T>
-void LinkedList<T>::insert(T val){
+void LinkedList<T>::insert_at_end(T val){
     if (!head)
         head = tail = new Node<int>(val);
     else {
@@ -46,6 +51,5 @@ LinkedList<T>::~LinkedList(){
     }
     delete temp;
 }
-
 
 #endif
