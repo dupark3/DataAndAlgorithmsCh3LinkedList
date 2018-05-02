@@ -14,8 +14,9 @@ class Node{
 public:
     T value;
     Node<T> *next;
-    Node() : next(0) { }
-    Node(T val) : value(val), next(0) { }
+    Node<T> *previous;
+    Node() : next(0), previous(0) { }
+    Node(T val) : value(val), next(0), previous(0) { }
 };
 
 template <class T>
@@ -54,6 +55,7 @@ void LinkedList<T>::insert_at_end(T val){
         head = tail = new Node<int>(val);
     } else {
         tail->next = new Node<int>(val);
+        tail->next->previous = tail;
         tail = tail->next;
     }
 }
@@ -63,9 +65,9 @@ void LinkedList<T>::insert_at_front(T val){
     if (!head){
         head = tail = new Node<int>(val);
     } else {
-        Node<T>* temp = head;
-        head = new Node<int>(val);
-        head->next = temp;
+        head->previous = new Node<int>(val);
+        head->previous->next = head;
+        head = head->previous;
     }
 }
 
@@ -73,7 +75,7 @@ template <class T>
 void LinkedList<T>::delete_at_end(){
     if (tail){
         Node<T>* temp = tail;
-        tail = tail->next; // CHANGE TO PREVIOUS ONCE DOUBLY LINKED LIST IMPLEMENTED
+        tail = tail->next;
         delete temp;
     }
 }
