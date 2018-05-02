@@ -75,7 +75,8 @@ template <class T>
 void LinkedList<T>::delete_at_end(){
     if (tail){
         Node<T>* temp = tail;
-        tail = tail->next;
+        tail = tail->previous;
+        tail->next = 0;
         delete temp;
     }
 }
@@ -85,6 +86,7 @@ void LinkedList<T>::delete_at_front(){
     if(head){
         Node<T>* temp = head;
         head = head->next;
+        head->previous = 0;
         delete temp;
     }
 }

@@ -15,6 +15,7 @@ int main(){
     my_list.print(); // 4 5 6 7
     my_list.delete_at_front();
     my_list.print(); // 5 6 7
-
+    my_list.delete_at_end();
+    my_list.print(); // 5 6
     return 0;
 }
