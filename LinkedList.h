@@ -33,6 +33,7 @@ public:
     void insert_at_front(T val);
     T delete_at_end();
     T delete_at_front();
+    void delete_nodes(T);
 
     bool is_empty() { return head == 0; }
     void print();
@@ -102,6 +103,42 @@ T LinkedList<T>::delete_at_front(){
         delete temp;
     }
     return value;
+}
+
+template <class T>
+void LinkedList<T>::delete_nodes(T value){
+    if (is_empty())
+        return;
+
+    Node<T>* temp = head;
+    
+    // check value at head or the new head
+    while (temp == head && temp->value == value){ 
+        head = head->next;
+        head->previous = 0;
+        delete temp;
+        temp = head;
+    }
+    
+    // check in the middle of the list
+    while(temp && temp != tail){ 
+        if (temp->value == value) {
+            Node<T>* temp2 = temp;
+            temp->previous->next = temp->next;
+            temp->next->previous = temp->previous;
+            temp = temp->next;
+            delete temp2;
+        } else {
+            temp = temp->next;
+        }
+    }
+
+    // check tail of the list
+    if (temp == tail && temp->value == value){
+        tail = tail->previous;
+        tail->next = 0;
+        delete temp;
+    }
 }
 
 template <class T>
