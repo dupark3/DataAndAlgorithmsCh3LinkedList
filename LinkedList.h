@@ -12,11 +12,12 @@ template <class T>
 class Node{
     friend class LinkedList<T>;
 private:
+    Node() : next(0), previous(0) { }
+    Node(T val) : value(val), next(0), previous(0) { }
+
     T value;
     Node<T> *next;
     Node<T> *previous;
-    Node() : next(0), previous(0) { }
-    Node(T val) : value(val), next(0), previous(0) { }
 };
 
 // LinkedList class; interface with user
@@ -26,8 +27,8 @@ public:
     LinkedList() : head(0), tail(0) { }
     LinkedList(T val) { head = tail = new Node<T>(val); }
     ~LinkedList();
-    LinkedList(const LinkedList&);
-    LinkedList& operator= (const LinkedList&);
+    LinkedList(const LinkedList<T>&);
+    LinkedList& operator= (const LinkedList<T>&);
     
     void insert_at_end(T val);
     void insert_at_front(T val);
@@ -44,6 +45,10 @@ private:
     Node<T>* tail;
 };
 
+
+        /***************** Definitions of member functions*********************/
+
+// destructor
 template <class T>
 LinkedList<T>::~LinkedList(){
     if (!is_empty()){
@@ -55,6 +60,27 @@ LinkedList<T>::~LinkedList(){
         delete temp;
     }
 }
+
+// copy constructor
+template <class T>
+LinkedList<T>::LinkedList(const LinkedList<T>& list){
+    if (list.head){
+        head = new Node<T>(list.head->value);
+        Node<T>* temp_source = list.head;
+        Node<T>* temp_destination = head;
+        while(temp_source->next){
+            temp_destination->next = new Node<T>(temp_source->next->value);
+            temp_destination->next->previous = temp_destination;
+            temp_destination = temp_destination->next;
+            temp_source = temp_source->next;
+        }
+        tail = temp_destination;
+    } else {
+        // copying an empty list
+        head = tail = 0;
+    }
+}
+
 
 template <class T>
 void LinkedList<T>::insert_at_end(T val){

@@ -29,5 +29,11 @@ int main(){
         cout << "7 is in the list." << endl;
     if (!my_list.is_in_list(15))
         cout << "15 is not in the list. " << endl;
+
+    LinkedList<int> new_list(my_list);
+    new_list.insert_at_front(10);
+    new_list.print();
+    my_list.print();
+
     return 0;
 }
