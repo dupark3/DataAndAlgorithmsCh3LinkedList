@@ -2,6 +2,7 @@
 #define GUARD_LinkedList_h
 
 #include <climits> // INT_MIN
+#include <cstddef> // size_t
 #include <iostream>
 
 // forward declaration
@@ -30,12 +31,14 @@ public:
     LinkedList(const LinkedList<T>&);
     LinkedList& operator= (const LinkedList<T>&);
     
-    void insert_at_end(T val);
-    void insert_at_front(T val);
+    void insert_at_end(T);
+    void insert_at_front(T);
+    void insert_at_index(T, std::size_t);
     T delete_at_end();
     T delete_at_front();
     void delete_nodes(T);
 
+    std::size_t size();
     bool is_in_list(T);
     bool is_empty() { return head == 0; }
     void print();
@@ -102,6 +105,30 @@ void LinkedList<T>::insert_at_front(T val){
         head->previous->next = head;
         head = head->previous;
     }
+}
+
+template <class T>
+void LinkedList<T>::insert_at_index(T val,std::size_t index){
+    std::size_t list_size = size();
+    if (index == 0){
+        insert_at_front(val);
+    } else if (index == list_size){
+        insert_at_end(val);
+    } else if (index < list_size && index > 0){
+        Node<T>* temp = head;
+        // get the temp pointer to point to the element at the index. 
+        for(std::size_t i = 0; i != index; ++i){
+            temp = temp->next;
+        }
+
+        // insert new node behind the node that the temp points to and connect all pointers
+        temp->previous->next= new Node<T>(val);
+        temp->previous->next->next = temp;
+        temp->previous->next->previous = temp->previous;
+        temp->previous = temp->previous->next;
+
+    }
+    
 }
 
 // returns INT_MIN if trying to delete from an empty list
@@ -180,6 +207,17 @@ bool LinkedList<T>::is_in_list(T val){
         }
     }
     return false;
+}
+
+template <class T>
+std::size_t LinkedList<T>::size(){
+    std::size_t list_size = 0;
+    Node<T>* temp = head;
+    while(temp){
+        ++list_size;
+        temp = temp->next;
+    }
+    return list_size;
 }
 
 template <class T>
