@@ -4,15 +4,14 @@
 #include <climits> // INT_MIN
 #include <iostream>
 
-/*
-TODO:
-    Need insert/delete at random points
-    Better encapsulation and protection of data
-*/ 
+// forward declaration
+template <class T> class LinkedList;
 
+// Node class; implementation details hidden from user
 template <class T>
 class Node{
-public:
+    friend class LinkedList<T>;
+private:
     T value;
     Node<T> *next;
     Node<T> *previous;
@@ -20,6 +19,7 @@ public:
     Node(T val) : value(val), next(0), previous(0) { }
 };
 
+// LinkedList class; interface with user
 template <class T>
 class LinkedList{
 public:
@@ -39,6 +39,7 @@ public:
     bool is_empty() { return head == 0; }
     void print();
 
+private:
     Node<T>* head;
     Node<T>* tail;
 };
