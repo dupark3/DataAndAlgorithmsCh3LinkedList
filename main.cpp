@@ -25,6 +25,9 @@ int main(){
     my_list.print(); // 2 2 5 6 7 2 7 2
     my_list.delete_nodes(2);
     my_list.print(); // 5 6 7 7 
-    
+    if (my_list.is_in_list(7))
+        cout << "7 is in the list." << endl;
+    if (!my_list.is_in_list(15))
+        cout << "15 is not in the list. " << endl;
     return 0;
 }

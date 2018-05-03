@@ -35,6 +35,7 @@ public:
     T delete_at_front();
     void delete_nodes(T);
 
+    bool is_in_list(T);
     bool is_empty() { return head == 0; }
     void print();
 
@@ -139,6 +140,19 @@ void LinkedList<T>::delete_nodes(T value){
         tail->next = 0;
         delete temp;
     }
+}
+
+template <class T>
+bool LinkedList<T>::is_in_list(T val){
+    if(head){
+        Node<T>* temp = head;
+        while(temp){
+            if (temp->value == val)
+                return true;
+            temp = temp->next;
+        }
+    }
+    return false;
 }
 
 template <class T>
